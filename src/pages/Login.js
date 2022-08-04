@@ -5,7 +5,9 @@ import ErrorIcon from '@mui/icons-material/Error';
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [click, setClicked] = useState(false);
+  const [createClick, setCreateClicked] = useState(false);
   const ref = useRef();
+  const createRef = useRef();
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
@@ -22,6 +24,18 @@ export const Login = () => {
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('click', (event) => {
+      if (createRef.current && !createRef.current.contains(event.target)) {
+        setCreateClicked(false);
+      }
+    });
+
+    return () => {
+      window.removeEventListener('click', () => {});
+    };
+  }, []);
+
   const onFormSubmit = (e) => {
     e.preventDefault();
 
@@ -30,9 +44,14 @@ export const Login = () => {
       ref.current.focus();
     }
 
-    if(email){
-        setIsEmpty(false);
+    if (email) {
+      setIsEmpty(false);
     }
+  };
+
+  const onCreateClick = (e) => {
+    e.preventDefault();
+    setCreateClicked(true);
   };
 
   return (
@@ -51,7 +70,6 @@ export const Login = () => {
                 isEmpty ? '!outline-red-500' : ''
               }`}
               onClick={() => setClicked(true)}
-              ref={ref}
             />
             <p
               className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  ${
@@ -84,7 +102,33 @@ export const Login = () => {
           <p className="font-medium text-blue-500 self-start text-sm cursor-pointer mb-8">
             Learn more
           </p>
-          <div className="self-end mb-14">
+          <div className="mb-14 flex justify-between w-full">
+            <div className='relative'>
+              <button
+                onClick={(e) => onCreateClick(e)}
+                className={`${
+                  createClick ? 'bg-blue-100' : ''
+                } hover:bg-blue-100 py-2  px-2 rounded-[4px] text-blue-500 font-medium `}
+              >
+                Create account
+                {createClick ? (
+                  <div
+                    ref={createRef}
+                    className="border text-left border-[#dadce0] py-2 bg-white text-lg absolute rounded-[4px] text-black font-normal w-56 drop-shadow-2xl flex flex-col items-start gap-2"
+                  >
+                    <p className="w-full hover:bg-slate-100 px-3 py-1 justify-self-start">
+                      For myself
+                    </p>
+                    <p className="w-full hover:bg-slate-100 px-3 py-1">
+                      For my child
+                    </p>
+                    <p className="w-full hover:bg-slate-100 px-3 py-1">
+                      To manage my business
+                    </p>
+                  </div>
+                 ) : null} 
+              </button>
+            </div>
             <button
               className="bg-blue-500 px-6 py-2 text-white rounded-[4px]"
               type="submit"
