@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login';
-import { Signin } from './pages/SignIn';
+import { Signup } from './pages/SignIn';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -18,7 +18,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' exact element={<Login />}/>
-          <Route path='/signup/v2' exact element={<Signin />}/>
+          <Route path='/signup/v2' exact element={<Signup />}/>
         </Routes>
       </BrowserRouter>
     </Provider>

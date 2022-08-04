@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import img from '../images/logo.jpg';
 import ErrorIcon from '@mui/icons-material/Error';
+import { Button } from '../components/Button';
+import {useNavigate} from 'react-router-dom'
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +11,7 @@ export const Login = () => {
   const ref = useRef();
   const createRef = useRef();
   const [isEmpty, setIsEmpty] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener('click', (event) => {
@@ -52,6 +55,7 @@ export const Login = () => {
   const onCreateClick = (e) => {
     e.preventDefault();
     setCreateClicked(true);
+    navigate('/signup/v2',{replace: true})
   };
 
   return (
@@ -70,6 +74,7 @@ export const Login = () => {
                 isEmpty ? '!outline-red-500' : ''
               }`}
               onClick={() => setClicked(true)}
+              ref={ref}
             />
             <p
               className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  ${
@@ -111,7 +116,7 @@ export const Login = () => {
                 } hover:bg-blue-100 py-2  px-2 rounded-[4px] text-blue-500 font-medium `}
               >
                 Create account
-                {createClick ? (
+                {/* {createClick ? (
                   <div
                     ref={createRef}
                     className="border text-left border-[#dadce0] py-2 bg-white text-lg absolute rounded-[4px] text-black font-normal w-56 drop-shadow-2xl flex flex-col items-start gap-2"
@@ -126,16 +131,14 @@ export const Login = () => {
                       To manage my business
                     </p>
                   </div>
-                 ) : null} 
+                 ) : null}  */}
               </button>
             </div>
-            <button
+            <Button               
               className="bg-blue-500 px-6 py-2 text-white rounded-[4px]"
               type="submit"
-              onClick={(e) => onFormSubmit(e)}
-            >
-              Next
-            </button>
+              onClick={(e) => onFormSubmit(e)} 
+              text='Next'/>
           </div>
         </form>
       </div>
