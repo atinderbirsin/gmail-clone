@@ -27,18 +27,6 @@ export const Login = () => {
     };
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('click', (event) => {
-      if (createRef.current && !createRef.current.contains(event.target)) {
-        setCreateClicked(false);
-      }
-    });
-
-    return () => {
-      window.removeEventListener('click', () => {});
-    };
-  }, []);
-
   const onFormSubmit = (e) => {
     e.preventDefault();
 
@@ -55,7 +43,7 @@ export const Login = () => {
   const onCreateClick = (e) => {
     e.preventDefault();
     setCreateClicked(true);
-    navigate('/signup/v2',{replace: true})
+    navigate('/signup/v3',{replace: true})
   };
 
   return (

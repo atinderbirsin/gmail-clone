@@ -23,10 +23,18 @@ export const Signup = () => {
     useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    if(!firstName || !lastName || !email || !password || confirmPassword) {
+
+    }
+  }
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="border border-[#dadce0] rounded-lg grid grid-cols-[1.5fr,1fr] items-center justify-items-center max-w-3xl" >
-        <div className="px-10 py-5 col">
+        <form className="px-10 py-5 col">
           {' '}
           <img src={img} alt="Logo" className="w-28" />
           <h1 className="text-2xl mb-2 font-normal">
@@ -84,7 +92,7 @@ export const Signup = () => {
           </div>
           <ErrorMessage
             text="Enter first name and surname"
-            className="text-red-500 text-sm flex gap-1 mb-6"
+            className={`text-red-500 text-sm flex gap-1 mb-6 ${!firstName || !lastName ? 'block' : 'opacity-0'}`}
           />
           <div className="flex gap-3 w-full">
             <div className="relative mb-1 w-full">
@@ -95,6 +103,7 @@ export const Signup = () => {
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
                 onFocus={() => setInputEmailClick(true)}
                 onBlur={() => setInputEmailClick(false)}
+                onActive={() => setInputEmailClick(true)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
@@ -127,8 +136,8 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
                 onFocus={() => setInputPasswordClick(true)}
                 onBlur={() => setInputPasswordClick(false)}
@@ -151,8 +160,8 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
                 onFocus={() => setInputConfirmPasswordClick(true)}
                 onBlur={() => setInputConfirmPasswordClick(false)}
@@ -204,11 +213,11 @@ export const Signup = () => {
             <Button
               className="bg-blue-500 px-6 py-2 text-white rounded-[4px] mb-8"
               type="submit"
-              // onClick={(e) => onFormSubmit(e)}
+              onClick={(e) => onFormSubmit(e)}
               text="Next"
             />
           </div>
-        </div>
+        </form>
 
         <div>
           <img src={account} className="max-w-xs" alt="Acoount opening form" />
