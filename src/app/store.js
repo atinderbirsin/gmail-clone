@@ -5,9 +5,9 @@ const preloadedState = {
     form : {
         firstName: 'Atinder',
         lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        // email: '',
+        // password: '',
+        // confirmPassword: '',
     }
 };
 
