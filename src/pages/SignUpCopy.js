@@ -36,6 +36,15 @@ const SignupCopy = () => {
     })
   };
 
+
+  const validate = (value) => {
+    if (value?.length < 5) {
+      return 'The value length should be greater than five'
+    } 
+
+    return '';
+  }
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="border border-[#dadce0] rounded-lg grid grid-cols-[1.5fr,1fr] items-center justify-items-center max-w-3xl">
@@ -69,7 +78,7 @@ const SignupCopy = () => {
             </div>
           </div>
           <InfoMessage
-            text="Please enter firstname"
+            text={validate(form.firstName)}
             className={`${'bb'} text-red-500 text-sm mb-3`}
           />
           <div className="flex">
