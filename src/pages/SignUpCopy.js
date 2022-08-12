@@ -6,44 +6,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFirstName, addLastName } from '../features/form/formSlice';
 import { Input } from '../components/Input';
 import { InfoMessage } from '../components/InfoMessage';
-
-const formErrors = [
-  {
-    text: 'firstName',
-    message: '',
-  },
-  {
-    text: 'lastName',
-    message: '',
-  },
-];
+import { addErrors, removeErrors } from '../features/form/errorsSlice';
 
 const SignupCopy = () => {
   const form = useSelector((state) => state.form);
+  const errors = useSelector((state) => state.errors);
   const [isEmpty, setIsEmpty] = useState(false);
-  const [errMessage,setErrorMessage] = useState('');
+  const [errMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
 
- const onFormSubmit = (e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
+    validate(form);
 
-    formErrors.forEach(err => {
-      if(!form[err.text]){
-        setErrorMessage(`Please enter ${err.text}`);
-      }else{
-        // console.log('no-error')
-      }
-    })
+
+    if(errors.firstName || errors.lastName){
+
+    }else {
+      
+    }
   };
 
-
   const validate = (value) => {
-    if (value?.length < 5) {
-      return 'The value length should be greater than five'
-    } 
+    const errors = {};
 
-    return '';
-  }
+    if (!value.firstName) {
+      errors.firstName = 'Firstname is required';
+    }
+
+    if (!value.lastName) {
+      errors.lastName = 'Lastname is required';
+    }
+
+    if(errors.firstName || errors.lastName){
+      console.log(errors);
+      dispatch(addErrors(errors));
+    }else if(errors.firstName === void(0) || errors.lastName === void(0)){
+      dispatch(removeErrors())
+    }
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -58,6 +59,7 @@ const SignupCopy = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
+                name="firstName"
                 value={form.firstName}
                 onChange={(e) => dispatch(addFirstName(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
@@ -69,7 +71,7 @@ const SignupCopy = () => {
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
                   : ''
               } ${
-                  isEmpty
+                  errors.firstName
                     ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500'
                     : ''
                 } transition-all pointer-events-none`}
@@ -78,13 +80,14 @@ const SignupCopy = () => {
             </div>
           </div>
           <InfoMessage
-            text={validate(form.firstName)}
+            text={errors.firstName}
             className={`${'bb'} text-red-500 text-sm mb-3`}
           />
           <div className="flex">
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
+                name="lastName"
                 value={form.lastName}
                 onChange={(e) => dispatch(addLastName(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
@@ -96,7 +99,7 @@ const SignupCopy = () => {
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
                   : ''
               } ${
-                  isEmpty
+                  errors.lastName
                     ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500'
                     : ''
                 } transition-all pointer-events-none`}
@@ -105,7 +108,7 @@ const SignupCopy = () => {
             </div>
           </div>
           <InfoMessage
-            text="Please enter lastname"
+            text={errors.lastName}
             className={`${'bb'} text-red-500 text-sm mb-3`}
           />
           <button>Submit</button>
