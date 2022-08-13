@@ -9,7 +9,6 @@ export const Login = () => {
   const [click, setClicked] = useState(false);
   const [createClick, setCreateClicked] = useState(false);
   const ref = useRef();
-  const createRef = useRef();
   const [isEmpty, setIsEmpty] = useState(false);
   const navigate = useNavigate();
 

@@ -1,6 +1,6 @@
-export const Input = ({type, value, onChange, className, onFocus, onBlur, onClick, validate}) => {
+export const Input = ({type, value, onChange, className}) => {
     return (
-        <input type={type} value={value} onChange={onChange} className={className} onFocus={onFocus} onBlur={onBlur} onClick={onClick} validate={validate}/>
+        <input type={type} value={value} onChange={onChange} className={className}/>
     )
 };
 

@@ -4,11 +4,11 @@ import errorsReducer from '../features/form/errorsSlice';
 
 const preloadedState = {
     form : {
-        firstName: 'Atinder',
+        firstName: '',
         lastName: '',
-        // email: '',
-        // password: '',
-        // confirmPassword: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
     },
     errors: {}
 };

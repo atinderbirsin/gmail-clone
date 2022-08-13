@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import img from '../images/logo.jpg';
 import { Placeholder } from '../components/Placeholder';
 import account from '../images/account.jpg';
@@ -11,8 +10,6 @@ import { addErrors, removeErrors } from '../features/form/errorsSlice';
 const SignupCopy = () => {
   const form = useSelector((state) => state.form);
   const errors = useSelector((state) => state.errors);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [errMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
