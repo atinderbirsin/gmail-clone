@@ -43,7 +43,7 @@ export const Login = () => {
   const onCreateClick = (e) => {
     e.preventDefault();
     setCreateClicked(true);
-    navigate('/signup/v3',{replace: true})
+    navigate('/signup/v2',{replace: true})
   };
 
   return (

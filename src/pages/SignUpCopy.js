@@ -19,6 +19,7 @@ const SignupCopy = () => {
     e.preventDefault();
     validate(form);
 
+    console.log(errors)
 
     if(errors.firstName || errors.lastName){
 
@@ -32,13 +33,20 @@ const SignupCopy = () => {
 
     if (!value.firstName) {
       errors.firstName = 'Firstname is required';
+    }else if(value.firstName) {
+      errors.firstName = '';
     }
 
     if (!value.lastName) {
       errors.lastName = 'Lastname is required';
+    }else if(value.lastName) {
+      errors.lastName = '';
     }
 
-    if(errors.firstName || errors.lastName){
+    if(errors.firstName){
+      console.log(errors);
+      dispatch(addErrors(errors));
+    }else if(errors.lastName) {
       console.log(errors);
       dispatch(addErrors(errors));
     }else if(errors.firstName === void(0) || errors.lastName === void(0)){

@@ -5,7 +5,7 @@ export const errorsSlice = createSlice({
     initialState: {},
     reducers: {
         addErrors: (state,action) => {
-            const payload = action.payload
+            const payload = action.payload;
 
             return {...state,...payload}
         },

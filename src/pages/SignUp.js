@@ -7,6 +7,8 @@ import { InfoMessage } from '../components/InfoMessage';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
 import account from '../images/account.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { addConfirmPassword, addEmail, addFirstName, addLastName, addPassword } from '../features/form/formSlice';
 
 export const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -22,6 +24,9 @@ export const Signup = () => {
   const [inputConfirmPasswordClick, setInputConfirmPasswordClick] =
     useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  const form = useSelector(state => state.form);
+  const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -45,16 +50,14 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={form.firstName}
+                onChange={(e) => dispatch(addFirstName(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-                onFocus={() => setInputNameClick(true)}
-                onBlur={() => setInputNameClick(false)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
               ${
-                inputNameClick
+                form.firstName
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
                   : ''
               } ${
@@ -69,16 +72,14 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={form.lastName}
+                onChange={(e) => dispatch(addLastName(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-                onFocus={() => setInputSurnameClick(true)}
-                onBlur={() => setInputSurnameClick(false)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
               ${
-                inputSurnameClick
+                form.lastName
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500 left-0'
                   : ''
               } ${
@@ -98,17 +99,14 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={form.email}
+                onChange={(e) => dispatch(addEmail(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-                onFocus={() => setInputEmailClick(true)}
-                onBlur={() => setInputEmailClick(false)}
-                onActive={() => setInputEmailClick(true)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
               ${
-                inputEmailClick
+                form.email
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
                   : ''
               } ${
@@ -135,17 +133,15 @@ export const Signup = () => {
           <div className="flex gap-3">
             <div className="relative mb-1 w-full">
               <Input
-                type="text"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                value={form.password}
+                onChange={(e) => dispatch(addPassword(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-                onFocus={() => setInputPasswordClick(true)}
-                onBlur={() => setInputPasswordClick(false)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
               ${
-                inputPasswordClick
+                form.password
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
                   : ''
               } ${
@@ -160,16 +156,14 @@ export const Signup = () => {
             <div className="relative mb-1 w-full">
               <Input
                 type="text"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={form.confirmPassword}
+                onChange={(e) => dispatch(addConfirmPassword(e.target.value))}
                 className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-                onFocus={() => setInputConfirmPasswordClick(true)}
-                onBlur={() => setInputConfirmPasswordClick(false)}
               />
               <Placeholder
                 className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
               ${
-                inputConfirmPasswordClick
+                form.confirmPassword
                   ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500 left-0'
                   : ''
               } ${
