@@ -6,8 +6,8 @@ import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Signup } from './pages/SignUp';
-import  SignupCopy  from './pages/SignUpCopy';
-import {store} from "./app/store"
+import SignupCopy from './pages/SignUpCopy';
+import { store } from './app/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -17,9 +17,9 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<Login />}/>
-          <Route path='/signup/v2' exact element={<Signup />}/>
-          <Route path='/signup/v3' exact element={<SignupCopy />}/>
+          <Route path="/" exact element={<Login />} />
+          {/* <Route path='/signup/v2' exact element={<Signup />}/> */}
+          <Route path="/signup/v3" exact element={<SignupCopy />} />
         </Routes>
       </BrowserRouter>
     </Provider>
