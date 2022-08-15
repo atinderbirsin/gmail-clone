@@ -4,34 +4,16 @@ export const formSlice = createSlice({
     name:'form',
     initialState: {},
     reducers: {
-        addFirstName: (state,action) => {
-            const firstName = action.payload
+        updateValue: (state,action) => {
+            const value = action.apyload;
 
-            return {...state,firstName}
-        },
-        addLastName: (state,action) => {
-            const lastName = action.payload
-
-            return {...state,lastName}
-        },
-        addEmail: (state,action) => {
-            const email = action.payload
-
-            return {...state,email}
-        },
-        addPassword: (state,action) => {
-            const password = action.payload
-
-            return {...state,password}
-        },
-        addConfirmPassword: (state,action) => {
-            const confirmPassword = action.payload
-
-            return {...state,confirmPassword}
+            return {...state, signupForm: {
+                ...state.signupForm, value
+            }, }
         },
     }
 })
 
-export const { addFirstName, addLastName, addEmail, addPassword, addConfirmPassword } = formSlice.actions;
+export const { updateValue } = formSlice.actions;
 
 export default formSlice.reducer
