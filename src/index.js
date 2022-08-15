@@ -18,7 +18,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' exact element={<Login />}/>
-          {/* <Route path='/signup/v2' exact element={<Signup />}/> */}
+          <Route path='/signup/v2' exact element={<Signup />}/>
           <Route path='/signup/v3' exact element={<SignupCopy />}/>
         </Routes>
       </BrowserRouter>

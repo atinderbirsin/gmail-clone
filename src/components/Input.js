@@ -1,63 +1,78 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateValue } from '../features/form/formSlice';
+import { ErrorMessage } from './ErrorMessage';
 import { InfoMessage } from './InfoMessage';
 import { Placeholder } from './Placeholder';
 
-export const Input = ({ type, className, formName, fieldName, validation }) => {
-    console.log(fieldName,formName);
+export const Input = ({
+  type,
+  className,
+  formName,
+  fieldName,
+  validation,
+  infoMessageText,
+}) => {
   const form = useSelector((state) => state.form);
   const [error, setError] = useState('');
+  const [touched, isTouched] = useState(false);
   const dispatch = useDispatch();
 
-  const placeHolderClass = `absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
+  useEffect(() => {
+    dispatch(updateValue({ [fieldName]: '' }));
+
+    return () => {
+      dispatch(updateValue({ [fieldName]: form[formName][fieldName] }));
+    };
+  }, []);
+
+  const placeHolderClass = `absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-1  
         ${
-          form?.[formName]?.[fieldName]
+          form?.[formName]?.[fieldName] || touched 
             ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
             : ''
         } ${
-    error[fieldName] ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500' : ''
-  } transition-all pointer-events-none`;
+    error && touched ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500' : ''
+  } ${!touched ? '!text-[#5f6368]' : ''} transition-all pointer-events-none`;
 
   const validate = (value) => {
-    for (let i = 0; i < validation.length; i++){
+    for (let i = 0; i < validation.length; i++) {
       const error = validation[i](value);
 
-      if(!error){
+      if (!error) {
         setError('');
-    }else {
-          setError(error);
-          break;
+      } else {
+        setError(error);
+        break;
       }
     }
   };
 
-  useEffect(() => {
-    dispatch(updateValue({fieldName: ''}))
-  },[])
-
   const onInputValueChange = (e) => {
-    dispatch(updateValue({fieldName: e.target.value}));
+    dispatch(updateValue({ [fieldName]: e.target.value }));
     validate(e.target.value);
   };
 
   return (
-    <>
+    <div className='w-full'>
       <div className="flex">
         <div className="relative mb-1 w-full">
           <input
             type={type}
-            value={form?.[formName]?.[fieldName]}
+            value={form[formName][fieldName] || ''}
             onChange={onInputValueChange}
-            className={className}
+            onFocus={() => isTouched(!touched)}
+            onBlur={() => isTouched(false)}
+            className={`${className} ${error ? '!outline-red-500' : ''}`}
           />
-          <Placeholder className={placeHolderClass} text="First Name" />
+          <Placeholder className={placeHolderClass} text={fieldName[0].toUpperCase()+fieldName.slice(1)} />
         </div>
       </div>
+      <ErrorMessage text={error} className={`text-red-500 text-xs mb-3`} />
       <InfoMessage
-        text={error}
-        className={`text-red-500 text-sm mb-3`}
+        text={infoMessageText}
+        className={`${error ? 'hidden' : 'block'} text-[#5f6368] text-xs mb-3 w-full overflow-ellipsis`}
       />
-    </>
+    </div>
   );
 };

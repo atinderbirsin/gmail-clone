@@ -1,8 +1,7 @@
 import img from '../images/logo.jpg';
 import account from '../images/account.jpg';
-import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../components/Input';
-import { isEmpty, isEqualToLength } from '../helper/validate';
+import { isEmpty } from '../helper/validate';
 
 const SignupCopy = () => {
 
@@ -21,11 +20,11 @@ const SignupCopy = () => {
           <p className="text-slate-800 mb-6">to continue to Gmail</p>
             <Input
               type='text'
-              // value='firstName'
               formName='signupForm'
               fieldName='firstName'
               className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500`}
-              validation={[isEmpty('First Name'),isEqualToLength('First Name',8)]}
+              validation={[isEmpty('First Name')]}
+              infoMessageText=''
             />
           <button>Submit</button>
         </form>

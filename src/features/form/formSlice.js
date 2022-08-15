@@ -5,10 +5,10 @@ export const formSlice = createSlice({
     initialState: {},
     reducers: {
         updateValue: (state,action) => {
-            const value = action.apyload;
+            const value = action.payload;
 
             return {...state, signupForm: {
-                ...state.signupForm, value
+                ...state.signupForm, ...value
             }, }
         },
     }

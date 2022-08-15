@@ -16,8 +16,10 @@ export const isEqualToLength = (key,length) => {
     }
 };
 
-export const isEqual = (key,value2) => {
+export const CheckisEqual = (key,value2) => {
+    console.log(value2);
     return (value) => {
+        // console.log('ssss',value)
         if(value == value2) {
             return `Those ${key} didn"t match. Try again.`;
         }

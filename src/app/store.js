@@ -3,20 +3,16 @@ import formReducer from '../features/form/formSlice';
 import errorsReducer from '../features/form/errorsSlice';
 
 const preloadedState = {
-    form : {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    },
-    errors: {}
+  form: {
+    signupForm: {},
+  },
+  errors: {},
 };
 
 export const store = configureStore({
   reducer: {
     form: formReducer,
-    errors: errorsReducer
+    errors: errorsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: true,
