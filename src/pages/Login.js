@@ -1,49 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
 import img from '../images/logo.jpg';
-import ErrorIcon from '@mui/icons-material/Error';
 import { Button } from '../components/Button';
 import {useNavigate} from 'react-router-dom'
+import { CheckisValidEmail, isEmpty } from '../helper/validate';
+import { useSelector } from 'react-redux';
+import { Input } from '../components/Input';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [click, setClicked] = useState(false);
-  const [createClick, setCreateClicked] = useState(false);
-  const ref = useRef();
-  const [isEmpty, setIsEmpty] = useState(false);
+  const state = useSelector(state => state.form);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.addEventListener('click', (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        if (!ref.current.value) {
-          setClicked(false);
-        }
-      }
-    });
+  const onCreateClick = (e) => {
+    e.preventDefault();
+    // setCreateClicked(true);
+    navigate('/signup/v2',{replace: true})
+  };
 
-    return () => {
-      window.removeEventListener('click', () => {});
-    };
-  }, []);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
-      setIsEmpty(true);
-      ref.current.focus();
-    }
-
-    if (email) {
-      setIsEmpty(false);
-    }
-  };
-
-  const onCreateClick = (e) => {
-    e.preventDefault();
-    setCreateClicked(true);
-    navigate('/signup/v2',{replace: true})
-  };
+    console.log(state);
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -52,39 +29,14 @@ export const Login = () => {
           <img className="w-28" src={img} alt="Brand Logo" />
           <h1 className="text-2xl font-normal pb-2">Sign in</h1>
           <p className="pb-6">to continue to gmail</p>
-          <div className="relative mb-1 w-full">
-            <input
+            <Input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-4 focus:outline-blue-500 ${
-                isEmpty ? '!outline-red-500' : ''
-              }`}
-              onClick={() => setClicked(true)}
-              ref={ref}
+              formName='loginForm'
+              fieldName='email'
+              infoMessageText=''
+              validation={[isEmpty('email'),CheckisValidEmail('email')]}
+              className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-4 focus:outline-blue-500`}
             />
-            <p
-              className={`absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  ${
-                click
-                  ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
-                  : ''
-              } ${
-                isEmpty
-                  ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500'
-                  : ''
-              } transition-all pointer-events-none`}
-            >
-              Email or phone
-            </p>
-          </div>
-          <p
-            className={`text-red-500 text-sm mb-2 self-start ${
-              isEmpty ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <ErrorIcon className="!text-[18px]" /> Enter an email or phone
-            number
-          </p>
           <p className="font-medium text-blue-500 self-start text-sm cursor-pointer mb-8">
             Forgot email?
           </p>
@@ -98,9 +50,7 @@ export const Login = () => {
             <div className='relative'>
               <button
                 onClick={(e) => onCreateClick(e)}
-                className={`${
-                  createClick ? 'bg-blue-100' : ''
-                } hover:bg-blue-100 py-2  px-2 rounded-[4px] text-blue-500 font-medium `}
+                className={` hover:bg-blue-100 py-2  px-2 rounded-[4px] text-blue-500 font-medium `}
               >
                 Create account
                 {/* {createClick ? (

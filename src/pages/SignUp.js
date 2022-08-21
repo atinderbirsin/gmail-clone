@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
 import account from '../images/account.jpg';
 import { useSelector } from 'react-redux';
-import { CheckisEqual, isEmpty, isEqualToLength } from '../helper/validate';
+import { CheckisEqual, CheckisValidEmail, isEmpty, isEqualToLength } from '../helper/validate';
+import { InfoMessage } from '../components/InfoMessage';
 
 export const Signup = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -50,44 +51,46 @@ export const Signup = () => {
                 className='outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500'
                 formName='signupForm'
                 fieldName='email'
-                validation={[isEmpty('email')]}
+                validation={[isEmpty('email'),CheckisValidEmail('email')]}
                 infoMessageText='You can use letters, numbers & periods'
             />
           </div>
           <div className="flex gap-3 mt-6">
             <Input 
-                type='password'
+                type={isChecked ? 'text' : 'password'}
                 className='outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500'
                 formName='signupForm'
                 fieldName='password'
                 validation={[isEmpty('password'),isEqualToLength('password',8)]}
-                infoMessageText='Use 8 or more characters with a mix of letters, numbers & symbols'
+                // infoMessageText='Use 8 or more characters with a mix of letters, numbers & symbols'
             />
             <Input 
-                type='password'
+                type={isChecked ? 'text' : 'password'}
                 className='outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500'
                 formName='signupForm'
                 fieldName='confirm'
                 validation={[isEmpty('confirm'),isEqualToLength('confirm',8),CheckisEqual('password',form['signupForm']['password'])]}
                 />
-
-            
           </div>
+                <InfoMessage
+                  text={'Use 8 or more characters with a mix of letters, numbers & symbols'}
+                  className={`text-[#5f6368] text-xs mb-3 w-full overflow-ellipsis`}
+                />
          
-          {/* <div className="flex items-center gap-2 mb-8 text-sm mt-6">
+          <div className="flex items-center gap-2 mb-8 text-sm mt-6">
             <span
               className={`p-2 rounded-full  flex ${
                 isChecked ? 'bg-blue-200' : 'hover:bg-slate-200'
               } transition-all`}
             >
-              <Input
+              <input
                 type="checkbox"
                 className="bg-gray-200 hover:bg-gray-300 cursor-pointer w-5 h-5 border-3 border-amber-500 focus:outline-none rounded-lg"
-                // onChange={() => setIsChecked(!isChecked)}
+                onChange={() => setIsChecked(!isChecked)}
               />
             </span>
             Show password
-          </div> */}
+          </div>
           <div className="flex justify-between items-start">
             <Link
               to="/"

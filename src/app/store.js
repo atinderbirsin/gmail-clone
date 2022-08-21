@@ -5,6 +5,7 @@ import errorsReducer from '../features/form/errorsSlice';
 const preloadedState = {
   form: {
     signupForm: {},
+    loginForm: {}
   },
   errors: {},
 };

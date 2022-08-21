@@ -9,6 +9,9 @@ export const formSlice = createSlice({
 
             return {...state, signupForm: {
                 ...state.signupForm, ...value
+            },
+            loginForm: {
+                ...state.loginForm, ...value
             }, }
         },
     }
