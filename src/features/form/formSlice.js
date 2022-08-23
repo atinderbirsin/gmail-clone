@@ -8,10 +8,10 @@ export const formSlice = createSlice({
             const value = action.payload;
 
             return {...state, signupForm: {
-                ...state.signupForm, ...value
+                ...state.signupForm, ...value.signupForm
             },
             loginForm: {
-                ...state.loginForm, ...value
+                ...state.loginForm, ...value.loginForm
             }, }
         },
     }

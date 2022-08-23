@@ -18,7 +18,6 @@ export const Login = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-
     console.log(state);
   }
 
@@ -33,6 +32,7 @@ export const Login = () => {
               type="email"
               formName='loginForm'
               fieldName='email'
+              focus={true}
               infoMessageText=''
               validation={[isEmpty('email'),CheckisValidEmail('email')]}
               className={`outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-4 focus:outline-blue-500`}

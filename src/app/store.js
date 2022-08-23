@@ -4,16 +4,16 @@ import errorsReducer from '../features/form/errorsSlice';
 
 const preloadedState = {
   form: {
-    signupForm: {},
-    loginForm: {}
+    // signupForm: {},
+    // loginForm: {}
   },
-  errors: {},
+  // errors: {},
 };
 
 export const store = configureStore({
   reducer: {
     form: formReducer,
-    errors: errorsReducer,
+    // errors: errorsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: true,

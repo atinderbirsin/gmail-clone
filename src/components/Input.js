@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateValue } from '../features/form/formSlice';
 import { ErrorMessage } from './ErrorMessage';
@@ -10,6 +10,7 @@ export const Input = ({
   className,
   formName,
   fieldName,
+  focus,
   validation,
   infoMessageText,
 }) => {
@@ -17,22 +18,25 @@ export const Input = ({
   const [error, setError] = useState('');
   const [touched, isTouched] = useState(false);
   const dispatch = useDispatch();
+  const ref = useRef();
 
   useEffect(() => {
-    dispatch(updateValue({ [fieldName]: '' }));
+    focus && ref.current.focus();
+
+    dispatch(updateValue({ [formName]: {[fieldName]: ''} }));
 
     return () => {
-      dispatch(updateValue({ [fieldName]: form[formName][fieldName] }));
+      dispatch(updateValue({ [formName]: {[fieldName]: form?.[formName]?.[fieldName]} }));
     };
   }, []);
 
-  const placeHolderClass = `absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-1  
+  const placeHolderClass = `absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  
         ${
           form?.[formName]?.[fieldName] || touched 
-            ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500'
+            ? 'top-0 text-[12px] z-50 bg-white px-1 text-blue-500 !ml-[6px]'
             : ''
         } ${
-    error && touched ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500' : ''
+    error && touched ? 'top-0 text-[12px] z-50 bg-white px-1 text-red-500 !ml-[6px]' : ''
   } ${!touched ? '!text-[#5f6368]' : ''} transition-all pointer-events-none`;
 
   const validate = (value) => {
@@ -49,7 +53,7 @@ export const Input = ({
   };
 
   const onInputValueChange = (e) => {
-    dispatch(updateValue({ [fieldName]: e.target.value }));
+    dispatch(updateValue({ [formName]: {[fieldName]: e.target.value} }));
     validate(e.target.value);
   };
 
@@ -58,14 +62,15 @@ export const Input = ({
       <div className="flex">
         <div className="relative mb-1 w-full">
           <input
+            ref={ref}
             type={type}
-            value={form[formName][fieldName] || ''}
+            value={form?.[formName]?.[fieldName] || ''}
             onChange={onInputValueChange}
             onFocus={() => isTouched(!touched)}
             onBlur={() => isTouched(false)}
             className={`${className} ${error ? '!outline-red-500' : ''}`}
           />
-          <Placeholder className={placeHolderClass} text={fieldName[0].toUpperCase()+fieldName.slice(1)} />
+          {fieldName && <Placeholder className={placeHolderClass} text={fieldName?.[0]?.toUpperCase()+fieldName?.slice(1)} />}
         </div>
       </div>
       <ErrorMessage text={error} className={`text-red-500 text-xs mb-3`} />

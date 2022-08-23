@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Signup } from './pages/SignUp';
 import {store} from "./app/store"
+import { Password } from './pages/Password';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -18,6 +19,7 @@ root.render(
         <Routes>
           <Route path='/' exact element={<Login />}/>
           <Route path='/signup/v2' exact element={<Signup />}/>
+          <Route path='/signup/v2/password' exact element={<Password />}/>
         </Routes>
       </BrowserRouter>
     </Provider>
