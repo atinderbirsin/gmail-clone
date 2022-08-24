@@ -1,7 +1,5 @@
-import { useState } from "react"
-
-export const Checkbox = ({className,margin}) => {
-    const [isChecked,setIsChecked] = useState(false);
+export const Checkbox = ({className,margin,onChange,isChecked }) => {
+    
 
     return (
         <div className={`flex items-center gap-2 text-sm ${margin}`}>
@@ -13,7 +11,7 @@ export const Checkbox = ({className,margin}) => {
               <input
                 type="checkbox"
                 className={className}
-                onChange={() => setIsChecked(!isChecked)}
+                onChange={onChange}
               />
             </span>
             Show password

@@ -23,11 +23,13 @@ export const Input = ({
   useEffect(() => {
     focus && ref.current.focus();
 
-    dispatch(updateValue({ [formName]: {[fieldName]: ''} }));
+    if(!form[formName]?.[fieldName]){
+      dispatch(updateValue({ [formName]: {[fieldName]: ''} }));
+    }
 
-    return () => {
-      dispatch(updateValue({ [formName]: {[fieldName]: form?.[formName]?.[fieldName]} }));
-    };
+    // return () => {
+    //   dispatch(updateValue({ [formName]: {[fieldName]: form?.[formName]?.[fieldName]} }));
+    // };
   }, []);
 
   const placeHolderClass = `absolute text-[#5f6368] top-[50%] translate-y-[-50%] ml-4  

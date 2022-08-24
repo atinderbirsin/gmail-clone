@@ -12,10 +12,11 @@ import {
 } from '../helper/validate';
 import { InfoMessage } from '../components/InfoMessage';
 import { Checkbox } from '../components/Checkbox';
+import { useState } from 'react';
 
 export const Signup = () => {
-
   const form = useSelector((state) => state.form);
+  const [isChecked,setIsChecked] = useState(false)
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -63,14 +64,14 @@ export const Signup = () => {
           </div>
           <div className="flex gap-3 mt-6">
             <Input
-              type={'isChecked' ? 'text' : 'password'}
+              type={isChecked ? 'text' : 'password'}
               className="outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500"
               formName="signupForm"
               fieldName="password"
               validation={[isEmpty('password'), isEqualToLength('password', 8)]}
             />
             <Input
-              type={'isChecked' ? 'text' : 'password'}
+              type={isChecked ? 'text' : 'password'}
               className="outline outline-1 rounded-[4px] outline-[#dadce0] w-full p-1 focus:outline-blue-500"
               formName="signupForm"
               fieldName="confirm"
@@ -90,10 +91,12 @@ export const Signup = () => {
           <Checkbox 
             className="bg-gray-200 hover:bg-gray-300 cursor-pointer w-5 h-5 border-3 border-amber-500 focus:outline-none rounded-lg" 
             margin='mb-8 mt-6'  
+            onChange={() => setIsChecked(!isChecked)}
+            isChecked={isChecked}
           />
           <div className="flex justify-between items-start">
             <Link
-              to="/"
+              to='/'
               className="text-blue-500 font-semibold hover:bg-blue-100 p-2  rounded-[4px]"
             >
               Sign in instead
