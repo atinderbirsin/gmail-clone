@@ -18,11 +18,6 @@ export const Signup = () => {
   const form = useSelector((state) => state.form);
   const [isChecked,setIsChecked] = useState(false)
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="border border-[#dadce0] rounded-lg grid grid-cols-[1.5fr,1fr] items-center justify-items-center max-w-3xl">
@@ -102,10 +97,10 @@ export const Signup = () => {
               Sign in instead
             </Link>
             <Button
-              className="bg-blue-500 px-6 py-2 text-white rounded-[4px] mb-8"
+              className="bg-blue-500 px-6 py-2 text-white rounded-[4px] mb-8 cursor-pointer"
               type="submit"
-              onClick={(e) => onFormSubmit(e)}
               text="Next"
+              formName='signupFormError'
             />
           </div>
         </form>

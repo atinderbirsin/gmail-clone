@@ -14,9 +14,19 @@ export const formSlice = createSlice({
                 ...state.loginForm, ...value.loginForm
             }, }
         },
+        updateError: (state,action) => {
+            const value = action.payload;
+
+            return {...state, signupFormError: {
+                ...state.signupFormError, ...value.signupFormError
+            },
+            loginFormError: {
+                ...state.loginFormError, ...value.loginFormError
+            }, }
+        },
     }
 })
 
-export const { updateValue } = formSlice.actions;
+export const { updateValue, updateError } = formSlice.actions;
 
 export default formSlice.reducer

@@ -13,11 +13,6 @@ export const Password = () => {
   const form = useSelector((state) => state.form);
   const [isChecked,setIsChecked] = useState(false);
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
@@ -27,7 +22,7 @@ export const Password = () => {
           <Link
             to='/' 
             className="cursor-pointer py-1 px-2 border border-[#dadce0] rounded-full text-sm font-semibold mb-14 flex items-center gap-1">
-            <AccountCircleIcon className="!text-xl" /> {form.loginForm.email} <KeyboardArrowDownIcon className="!text-xl" />
+            <AccountCircleIcon className="!text-xl" /> {form?.loginForm?.email} <KeyboardArrowDownIcon className="!text-xl" />
           </Link>
           <Input
             type={isChecked ? 'text' : 'password'}
@@ -56,7 +51,6 @@ export const Password = () => {
             <Button
               className="bg-blue-500 px-6 py-2 text-white rounded-[4px]"
               type="submit"
-              onClick={(e) => onFormSubmit(e)}
               text="Next"
             />
           </div>

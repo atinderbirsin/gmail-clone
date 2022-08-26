@@ -37,14 +37,14 @@ export const Login = () => {
                 className="hover:bg-blue-100 py-2 block px-2 rounded-[4px] text-blue-500 font-medium"
                 >
                   Create account
-                </Link>
+              </Link>
             </div>
             <Link              
               to='/signup/v2/password'
               className="bg-blue-500 px-6 py-2 text-white rounded-[4px]"
               type="submit">
                 Next
-                </Link>
+            </Link>
           </div>
         </form>
       </div>
